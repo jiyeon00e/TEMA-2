@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수학여행 웹사이트</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 70%; /* 페이지 전체 높이 */
+        }
+
+        .main-content {
+            max-height: 80vh; /* 화면의 80% 크기까지 제한 */
+            overflow-y: auto; /* 콘텐츠가 넘칠 경우 스크롤이 생기도록 */
+        }
+        #sidebar {
+            width: 100%;
+            background: #f4f4f4;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        #sidebar a {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            background: #ddd;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        #sidebar a:hover {
+            background: #bbb;
+        }
+        #content {
+            padding: 20px;
+            margin-bottom: 60px;
+        }
+        .hidden { display: none; }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            font-size: 16px;
+            color: black;
+            padding: 5px 0;
+        }
+        ul li a {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>2025 울산여고 수학여행</h1>
+        <p>TEMA 1</p>
+        <p>0331 ~ 0404</p>
+    </div>
+    <div id="sidebar">
+        <a href="#" onclick="loadPage('schedule')">일정</a>
+        <a href="#" onclick="loadPage('hotel')">숙소</a>
+        <a href="#" onclick="loadPage('meals')">식사</a>
+        <a href="#" onclick="loadPage('transport')">교통편</a>
+        <a href="#" onclick="loadPage('contact')">연락처</a>
+    </div>
+    
+    <script>
+        function loadPage(page) {
+            const content = document.getElementById('content');
+            if (page === 'schedule') {
+                content.innerHTML = `
+                    <h1>일정</h1>
+                    <div>
+                        <button onclick="showSchedule(1)">0331 MON</button>
+                        <button onclick="showSchedule(2)">0401 TUE</button>
+                        <button onclick="showSchedule(3)">0402 WED</button>
+                        <button onclick="showSchedule(4)">0403 THU</button>
+                    </div>
+                    <div id="scheduleContent"></div>
+                `;
+            } else if (page === 'hotel') {
+                content.innerHTML = `
+                    <h1>숙소</h1>
+                    <div>
+                        <button onclick="showHotel(1)">숙소 시설</button>
+                    </div>
+                    <div id="hotelContent"></div>
+                `;
+
+            } else if (page === 'meals') {
+                content.innerHTML = `
+                    <h1>식사</h1>
+                    <div>
+                        <button onclick="showMeal(1)">조식</button>
+                        <button onclick="showMeal(2)">중식</button>
+                        <button onclick="showMeal(3)">석식</button>
+                    </div>
+                    <div id="mealContent"></div>
+                `;
+            }else if (page === 'transport') {
+                content.innerHTML = `
+                    <h1>교통편</h1>
+                    <div>
+                        <button onclick="showTransport(1)">김해-제주 항공편</button>
+                        <button onclick="showTransport(2)">제주-김해 항공편</button>
+                        <button onclick="showTransport(3)">울산-김해 교통편</button>
+                        <button onclick="showTransport(4)">제주도내 교통편</button>
+                    </div>
+                    <div id="transportContent"></div>
+                `;
+            }else if (page === 'contact') {
+                content.innerHTML = `
+                    <h1>연락처</h1>
+                    <p>전화번호를 누르면 전화 연결로 이어집니다</p>
+                    <ul>
+                        <li>울산여고 교무실 ㅣ <a href="tel:052-258-4231">052-258-4231</a></li>
+                        <li>여행사 ㅣ <a href="tel:064-747-9230">064-747-9230</a></li>
+                        <li>제주항공우주호텔 ㅣ <a href="tel:064-978-5500">064-978-5500</a></li>
+                        <li>교통 (울산-김해) ㅣ <a href="tel:052-225-2500">052-225-2500</a></li>
+                        <li>교통 (제주도내) ㅣ <a href="tel:064-748-5504">064-748-5504</a></li>
+                    </ul>
+                `;
+            }
+        }
+
+        function showSchedule(day) {
+            const scheduleContent = document.getElementById('scheduleContent');
+            const schedules = {
+                1: `
+                    <h2>Day 1</h2>
+                    <p>~ 10:40 ㅣ 울산대공원 동문 집결</p>
+                    <p>11:00 ~ 12:00 ㅣ 울산 출발 / 김해공항 도착</p>
+                    <p>12:00 ~ 13:35 ㅣ 항공 수속 및 탑승 & 간편식</p>
+                    <p>13:30 ~ 14:30 ㅣ 김해공항 출발 / 제주 도착</p>
+                    <p>14:40 ~ 15:00 ㅣ 항공 수속 및 버스 탑승</p>
+                    <p>15:20 ~ 16:20 ㅣ 미디어아트 <a href="https://naver.me/5Kb3DfXJ">
+                        <span style="color: #000;">@노형수퍼마켙</span>
+                    </a></p>
+                    <p>17:00 ~ 18:00 ㅣ <a href="https://naver.me/5XJIlPtO">
+                        <span style="color: #000;">@협재해수욕장</span>
+                    </a></p>
+                    <p>18:30 ~ ㅣ 숙소 도착 및 방 배정 / 석식 후 휴식</p>
+                    <p>22:00 ㅣ 점호</p>
+                `,
+                2: `
+                    <h2>Day 2</h2>
+                    <p>07:00 ~ 08:20 ㅣ 기상 및 조식</p>
+                    <p>08:20 ㅣ 숙소 출발</p>
+                    <p>09:30 ~ 10:50 ㅣ 제주아리랑 "혼" 공연</p>
+                    <p>11:00 ~ 12:10 ㅣ 승마체험 <a href="https://naver.me/5N15FrlG">
+                        <span style="color: #000;">@송당승마장</span>
+                    </a> 및 <a href="https://naver.me/5N15FrlG">
+                        <span style="color: #000;">@선물의집</span>
+                    </a> (교차진행)</p>
+                    <p>12:20 ~ 13:20 ㅣ 중식 @이미화뷔페</p>
+                    <p>13:50 ~ 15:50 ㅣ <a href="https://naver.me/xiquOGa4">
+                        <span style="color: #000;">@아쿠아플라넷</span>
+                    </a></p>
+                    <p>16:40 ~ 17:40 ㅣ 카트체험 <a href="https://naver.me/GALR581Y">
+                        <span style="color: #000;">@제주레포츠랜드</span>
+                    </a></p>
+                    <p>18:40 ~ ㅣ 숙소 도착 후 석식 / 자유시간</p>
+                    <p>22:00 ㅣ 점호</p>
+                `,
+                3: `
+                    <h2>Day 3</h2>
+                    <p>07:00 ~ 08:40 ㅣ 기상 및 조식</p>
+                    <p>08:40 ㅣ 숙소 출발</p>
+                    <p>09:30 ~ 10:30 ㅣ <a href="https://naver.me/xAFC3J5w">
+                        <span style="color: #000;">@천지연 폭포</span>
+                    </a></p>
+                    <p>11:00 ~ 11:40 ㅣ 제트보트 @중문 주상절리</p>
+                    <p>12:10 ~ 13:00 ㅣ 중식 @스타월드</p>
+                    <p>13:10 ~ 14:30 ㅣ <a href="https://naver.me/5uIYATBA">
+                        <span style="color: #000;">@오설록 티 뮤지엄</span>
+                    </a></p>
+                    <p>14:50 ~ 16:10 ㅣ 새별오름 <a href="https://naver.me/F884KJHB">
+                        <span style="color: #000;">@억새군락지</span>
+                    </a></p>
+                    <p>16:30 ~ 18:00 ㅣ <a href="https://naver.me/GALR1J9T">
+                        <span style="color: #000;">@세계자동차 & 피아노 박물관</span>
+                    </a></p>
+                    <p>18:10 ~ 20:00 ㅣ 숙소 도착 후 석식 / 자유시간</p>
+                    <p>20:00 ~ 22:00 ㅣ 레크레이션</p>
+                    <p>23:00 ㅣ 점호</p>
+                `,
+                4: `
+                    <h2>Day 4</h2>
+                    <p>07:00 ~ 09:30 ㅣ 기상 및 조식</p>
+                    <p>09:30 ㅣ 숙소 출발</p>
+                    <p>10:10 ~ 11:50 ㅣ <a href="https://naver.me/xdpFV0sY">
+                        <span style="color: #000;">@수목원 테마파크</span>
+                    </a></p>
+                    <p>12:10 ~ 13:10 ㅣ 중식 @노팅힐</p>
+                    <p>13:30 ~ 14:50 ㅣ 항공 수속 및 탑승</p>
+                    <p>15:00 ~ 16:00 ㅣ 제주 출발 / 김해공항 도착</p>
+                    <p>16:30 ~ 17:30 ㅣ 김해공항 출발 / 울산 도착</p>
+                    <p>17:30 ~ ㅣ 안전교육 후 귀가</p>
+                `
+            };
+            scheduleContent.innerHTML = schedules[day];
+        }
+        function showTransport(day) {
+            const transportContent = document.getElementById('transportContent');
+            const transports = {
+                1: `
+                    <h2>김해-제주 항공편</h2>
+                    <p>에어부산 BX8111</p>
+                    <p>김해 → 제주 ㅣ 13:30 → 14:30</p>
+                `,
+                2: `
+                    <h2>제주-김해 항공편</h2>
+                    <p>에어부산 BX8110</p>
+                    <p>제주 → 김해 ㅣ 15:00 → 16:00</p>
+                `,
+                3: `
+                    <h2>울산-김해 교통편</h2>
+                    <p>가자고속투어</p>
+                `,
+                4: `
+                    <h2>제주도내 교통편</h2>
+                    <p>일광교통관광</p>
+                `
+            };
+            transportContent.innerHTML = transports[day];
+        } 
+        function showMeal(day) {
+            const mealContent = document.getElementById('mealContent');
+            const meals = {
+                1: `
+                    <h2>조식</h2>
+                    <p>배식 순서</p>
+                    <p>0401 TUE ㅣ 3반 시작 → 2반 끝</p>
+                    <p>0402 WED ㅣ 7반 시작 → 6반 끝</p>
+                    <p>0403 THU ㅣ 2반 시작 → 1반 끝</p>
+                `,
+                2: `
+                    <h2>중식</h2>
+                    <p>0331 MON ㅣ 간편식 @롯데리아 </p>
+                    <p>0401 TUE ㅣ 흑돼지 주물럭 정식 (무한리필) @이미화뷔페</p>
+                    <p>0402 WED ㅣ 돈까스 뷔페 @스타월드 푸드</p>
+                    <p>0403 THU ㅣ 부대찌개 정식 @노팅힐</p>
+                `,
+                3: `
+                    <h2>석식</h2>
+                    <p>배식 순서</p>
+                    <p>0331 MON ㅣ 1반 시작 → 10반 끝</p>
+                    <p>0401 WED ㅣ 5반 시작 → 4반 끝</p>
+                    <p>0402 THU ㅣ 9반 시작 → 8반 끝</p>
+                `,
+            };
+            mealContent.innerHTML = meals[day];
+        } 
+        function showHotel(day) {
+            const hotelContent = document.getElementById('hotelContent');
+            const hotels = {
+                1: `
+                    <h2>숙소 시설</h2>
+                    <p>A동 · B동 연결 통로 ㅣ 2층</p>
+                    <p>편의점 ㅣ 로비 1층</p>
+                    <p>수건 ㅣ 매일 1인당 1개 제공</p>
+                    <p>생수 ㅣ 객실 내 매일 1병씩 제공</p>
+                    <p>샴푸 · 린스 · 바디워스 ㅣ 비치 (개인용품 준비 권장)</p>
+                    <p>칫솔 및 치약 ㅣ 미비치</p>
+                    <p>드라이기 ㅣ 비치</p>
+                    <p>슬리퍼 ㅣ 미비치</p>
+                `,
+            };
+            hotelContent.innerHTML = hotels[day];
+        } 
+    </script>
+</body>
+</html>
